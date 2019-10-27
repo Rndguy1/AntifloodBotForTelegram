@@ -13,7 +13,7 @@ def antiflood(user_id, chat_id):
     if counter.get(user_id) is not None and counter.get(user_id) >= antiflood_max_msgs:
         date_time = datetime.now(None) + timedelta(seconds=60)
         bot.restrictChatMember(chat_id, user_id, until_date=date_time.timestamp(), can_send_messages=False)
-        print("[!] " + str(user_id) + " e' stato bloccato per 60 secondi dopo aver inviato troppi messaggi")
+        print("[!] " + str(user_id) + " was blocked because he has sent too many messages")
         
     counter[user_id] = 0
 
@@ -28,7 +28,6 @@ def on_message(msg):
             Timer(antiflood_seconds, antiflood, [user_id, msg['chat']['id']]).start()
             counter[user_id] = counter[user_id] + 1
         else:
-            #tmp = counter.get(user_id) + 1
             counter[user_id] = counter[user_id] + 1
 
 if __name__ == '__main__':
