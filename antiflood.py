@@ -19,7 +19,7 @@ def antiflood(user_id, chat_id):
         chat_member = bot.getChatMember(chat_id, user_id)
         chat_name = bot.getChat(chat_id)
         output = open(integral_output, 'a')
-        output.write("[" + date_time.ctime() + "] User [" + chat_member['user']['first_name'] + "] with ID=[" + chat_member['user']['id'] + 
+        output.write("[" + date_time.ctime() + "] User [" + chat_member['user']['first_name'] + "] with ID=[" + str(chat_member['user']['id']) + 
                 " was blocked in group [" + chat_name['title'] + "] because he sent too many messages.\n")
         output.close()
         
@@ -27,7 +27,7 @@ def antiflood(user_id, chat_id):
 
 def on_message(msg):
     # main function to be used
-    if msg['chat']['type'] == "supergroup" and "new_chat_member" not in msg and "left_chat_participant" not in msg:
+    if "new_chat_member" not in msg and "left_chat_participant" not in msg:
         user_id = str(msg['from']['id'])
         if user_id not in user_ids:
             user_ids.append(user_id)
@@ -39,9 +39,9 @@ def on_message(msg):
             counter[user_id] = counter[user_id] + 1
 
 if __name__ == '__main__':  #script starting point
-    # defines telepot client
     output = open(integral_output, 'w')
     output.close()
+    # defines telepot client
     bot = telepot.Bot(token)
     # loops the threaded main function
     MessageLoop(bot, on_message).run_as_thread()
