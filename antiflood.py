@@ -19,7 +19,7 @@ def antiflood(user_id, chat_id):
         chat_member = bot.getChatMember(chat_id, user_id)
         chat_name = bot.getChat(chat_id)
         output = open(integral_output, 'a')
-        output.write("[" + date_time.ctime() + "] User [" + chat_member['user']['first_name'] + "] with ID=[" + str(chat_member['user']['id']) + 
+        output.write("[" + date_time.ctime() + "] User [" + chat_member['user']['first_name'] + "] with ID=[" + user_id + 
                 " was blocked in group [" + chat_name['title'] + "] because he sent too many messages.\n")
         output.close()
         
